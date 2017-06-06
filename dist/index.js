@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "http://localhost:8888/dist/static/";
+/******/ 	__webpack_require__.p = "http://localhost:8888/dist/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 225);
@@ -24734,7 +24734,6 @@ var App = function App() {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
     { className: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_aphrodite__["css"])(styles.padding) },
-    'hello,world',
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__component_home_Item__["a" /* default */], { content: '\u5DE6\u6ED1\u5220\u9664\u6216\u8005\u7F16\u8F91' }),
     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__component_home_Item__["a" /* default */], { content: '\u53F3\u6ED1\u6807\u8BB0\u5DF2\u5B8C\u6210 \u221A' })
   );
@@ -25089,7 +25088,7 @@ var Item = function (_React$Component) {
 
 var styles = __WEBPACK_IMPORTED_MODULE_1_aphrodite__["StyleSheet"].create({
   'smallerFontSize': {
-    fontSize: '0.6rem'
+    fontSize: '0.8rem'
   }
 });
 
@@ -25100,7 +25099,7 @@ var styles = __WEBPACK_IMPORTED_MODULE_1_aphrodite__["StyleSheet"].create({
 /* 224 */
 /***/ (function(module, exports) {
 
-module.exports = "http://localhost:8888/dist/static/static/avatar-99296621.png";
+module.exports = "http://localhost:8888/dist/static/avatar-99296621.png";
 
 /***/ }),
 /* 225 */

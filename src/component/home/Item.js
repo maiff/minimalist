@@ -79,7 +79,7 @@ class Item extends React.Component {
 
 const styles = StyleSheet.create({
   'smallerFontSize': {
-    fontSize:'0.6rem'
+    fontSize:'0.8rem'
   }
 })
 

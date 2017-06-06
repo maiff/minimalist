@@ -7,7 +7,6 @@ import Item from './component/home/Item'
 const App = () => {
   return (
     <div className={css(styles.padding)}>
-      hello,world
       <Item content="左滑删除或者编辑"/>
       <Item content="右滑标记已完成 √"/>
     </div>
