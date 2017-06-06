@@ -24,6 +24,7 @@ class Item extends React.Component {
     if (evt.deltaX > 0 && this.y < 10) {
       this.rightSwip()
     }
+    // evt.stopPropagation()
   }
   rightSwip () {
     if (this.x > 20) {

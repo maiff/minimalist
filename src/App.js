@@ -1,22 +1,95 @@
 import React from 'react'
 import pic from './assets/img/avatar.png'
 import { StyleSheet, css } from 'aphrodite'
-
+import AlloyFinger from './component/common/AlloyFinger'
 
 import Item from './component/home/Item'
-const App = () => {
-  return (
-    <div className={css(styles.padding)}>
-      <Item content="左滑删除或者编辑"/>
+class App extends React.Component {
+  constructor (props) {
+    super(props)
+    this.y = 0
+    this.x = 0
+    this.textInput = null
+    this.state = {
+      value: '',
+      inputShow: false,
+      todoList: [{
+        content: "左滑删除或者编辑",
+        id: 0
+      }, {
+        content: "右滑标记已完成 √",
+        id: 1
+      }, {
+        content: "下拉添加 √",
+        id: 2
+      }],
+      style: {
+        marginTop: '-16%'
+      }
+    }
+  }
+  textOnBlur (event) {
+    let self = this
+    this.setState((prevState, props) => ({
+      inputShow: false,
+      todoList: prevState.value === '' ? prevState.todoList : [{content: this.textInput.value, id: prevState.todoList.length}, ...prevState.todoList],
+      value: '',
+      style: {
+          marginTop: '-16%'
+      }
+    }))
+  }
+  handleChange(event) {
+    this.setState({value: event.target.value});
+  }
+  onPressMove (evt) {
+    this.y += evt.deltaY
+    this.x += evt.deltaX
+    console.log(this.x, this.y)
+    if (this.y > 20 && this.x < 10) {
+      this.textInput.focus()
+      this.setState({
+        inputShow: true,
+        style: {
+          marginTop: '0%'
+        }
+      })
+    }
+  }
+  init () {
+    this.x = 0
+    this.y = 0
+  }
+  render () {
+    return (
+      <AlloyFinger onPressMove={this.onPressMove.bind(this)} onTouchEnd={this.init.bind(this)}>
+        <div className={css(styles.padding)} style={this.state.style}>
+          <input ref={(input) => { this.textInput = input }} value={this.state.value} onBlur={this.textOnBlur.bind(this)} onChange={this.handleChange.bind(this)}/>
+          {this.state.inputShow || 
+          (<div style={
+              {
+                transtion: 'all .5s'
+              }
+            }>
 
-      <Item content="右滑标记已完成 √"/>
-    </div>
-  );
-};
+            {
+              this.state.todoList.map((c, index) => 
+                 <Item content={c.content} key={c.id}/>
+              )
+            }
+
+          </div>)}
+        </div>
+      </AlloyFinger>
+    )
+  }
+}
 
 const styles = StyleSheet.create({
   padding: {
-    padding:'5%'
+    padding:'5%',
+    minHeight: '95%',
+    transition: 'all .3s'
   }
 })
 if(window.DeviceOrientationEvent){
