@@ -10,6 +10,8 @@ class Item extends React.Component {
     this.y = 0
     this.isDone = false
     this.hasSetedX = false
+    this.changeDone = props.changeDone
+    this.id = props.itemID
     this.state = {
       style: {
         opacity: 1,
@@ -18,7 +20,7 @@ class Item extends React.Component {
     }
   }
   onPressMove (evt) {
-    console.log(this.x,this.isDone)
+    console.log(this.x, this.isDone)
     this.x += evt.deltaX
     this.y += evt.deltaY
     if (evt.deltaX > 0 && this.y < 10) {
@@ -30,6 +32,7 @@ class Item extends React.Component {
     if (this.x > 20) {
       if (this.hasSetedX === false) {
         this.isDone = !this.isDone
+        this.changeDone(this.id, this.isDone)
         this.hasSetedX = true
       }
     } else {
@@ -61,15 +64,15 @@ class Item extends React.Component {
         opacity: 0.5,
         textDecoration: 'line-through'
       }
-    }) :
-    this.setState({
+    })
+    : this.setState({
       style: {
         opacity: 1,
         textDecoration: 'none'
       }
     })
   }
-  render() {
+  render () {
     return (
       <AlloyFinger onPressMove={this.onPressMove.bind(this)} onTouchEnd={this.init.bind(this)}>
         <p className={css(styles.smallerFontSize)} style={this.state.style}>{this.props.content}</p>
@@ -83,7 +86,7 @@ class Item extends React.Component {
 
 const styles = StyleSheet.create({
   'smallerFontSize': {
-    fontSize:'0.8rem'
+    fontSize: '0.8rem'
   }
 })
 
