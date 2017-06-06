@@ -14,13 +14,13 @@ class App extends React.Component {
       value: '',
       inputShow: false,
       todoList: [{
-        content: "左滑删除或者编辑",
+        content: '左滑删除或者编辑',
         id: 0
       }, {
-        content: "右滑标记已完成 √",
+        content: '右滑标记已完成 √',
         id: 1
       }, {
-        content: "下拉添加 √",
+        content: '下拉添加 √',
         id: 2
       }],
       style: {
@@ -29,18 +29,17 @@ class App extends React.Component {
     }
   }
   textOnBlur (event) {
-    let self = this
     this.setState((prevState, props) => ({
       inputShow: false,
       todoList: prevState.value === '' ? prevState.todoList : [{content: this.textInput.value, id: prevState.todoList.length}, ...prevState.todoList],
       value: '',
       style: {
-          marginTop: '-16%'
+        marginTop: '-16%'
       }
     }))
   }
-  handleChange(event) {
-    this.setState({value: event.target.value});
+  handleChange (event) {
+    this.setState({value: event.target.value})
   }
   onPressMove (evt) {
     this.y += evt.deltaY
@@ -64,17 +63,15 @@ class App extends React.Component {
     return (
       <AlloyFinger onPressMove={this.onPressMove.bind(this)} onTouchEnd={this.init.bind(this)}>
         <div className={css(styles.padding)} style={this.state.style}>
-          <input ref={(input) => { this.textInput = input }} value={this.state.value} onBlur={this.textOnBlur.bind(this)} onChange={this.handleChange.bind(this)}/>
-          {this.state.inputShow || 
-          (<div style={
-              {
-                transtion: 'all .5s'
-              }
-            }>
+          <input className={css(styles.fontSize)} ref={(input) => { this.textInput = input }} value={this.state.value} onBlur={this.textOnBlur.bind(this)} onChange={this.handleChange.bind(this)} type='text' />
+          {this.state.inputShow ||
+          (<div style={{
+            transtion: 'all .5s'
+          }}>
 
             {
-              this.state.todoList.map((c, index) => 
-                 <Item content={c.content} key={c.id}/>
+              this.state.todoList.map((c, index) =>
+                <Item content={c.content} key={c.id} />
               )
             }
 
@@ -87,24 +84,31 @@ class App extends React.Component {
 
 const styles = StyleSheet.create({
   padding: {
-    padding:'5%',
+    padding: '5%',
     minHeight: '95%',
     transition: 'all .3s'
+  },
+  fontSize: {
+    fontSize: '0.8rem',
+    width: '100%',
+    margin: 0,
+    padding: 0,
+    '-webkit-appearance': 'caret'
   }
 })
-if(window.DeviceOrientationEvent){
-    var lastAcc;    // 用来存储上一次的deviceorientation事件
-    document.addEventListener('deviceorientation', function(event) {
-        var delA = Math.abs(event.alpha - lastAcc.alpha)    // alpha轴偏转角
-        var delB = Math.abs(event.beta - lastAcc.beta)    // beta轴偏转角
-        var delG = Math.abs(event.gamma - lastAcc.gamma)    // gamma轴偏转角
-        if ( (delA > 15 && delB > 15) || (delA > 15 && delG > 15) || (delB > 15 || delG > 15)) {
+if (window.DeviceOrientationEvent) {
+  var lastAcc    // 用来存储上一次的deviceorientation事件
+  window.addEventListener('deviceorientation', function (event) {
+    var delA = Math.abs(event.alpha - lastAcc.alpha)    // alpha轴偏转角
+    var delB = Math.abs(event.beta - lastAcc.beta)    // beta轴偏转角
+    var delG = Math.abs(event.gamma - lastAcc.gamma)    // gamma轴偏转角
+    if ((delA > 15 && delB > 15) || (delA > 15 && delG > 15) || (delB > 15 || delG > 15)) {
             // 用户设备摇动了，触发响应操作
             // 此处的判断依据是任意两个轴篇转角度大于15度
-            alert('摇了')
-        }
-        lastAcc = event    // 存储上一次的event
-    })
+      alert('摇了')
+    }
+    lastAcc = event    // 存储上一次的event
+  })
 }
 
 export default App
