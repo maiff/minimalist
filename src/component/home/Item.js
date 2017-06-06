@@ -7,6 +7,7 @@ class Item extends React.Component {
   constructor (props) {
     super(props)
     this.x = 0
+    this.y = 0
     this.isDone = false
     this.hasSetedX = false
     this.state = {
@@ -19,12 +20,13 @@ class Item extends React.Component {
   onPressMove (evt) {
     console.log(this.x,this.isDone)
     this.x += evt.deltaX
-    if (evt.deltaX > 0) {
+    this.y += evt.deltaY
+    if (evt.deltaX > 0 && this.y < 10) {
       this.rightSwip()
     }
   }
   rightSwip () {
-    if (this.x > 10) {
+    if (this.x > 20) {
       if (this.hasSetedX === false) {
         this.isDone = !this.isDone
         this.hasSetedX = true
@@ -36,11 +38,11 @@ class Item extends React.Component {
   setOpacity (x) {
     this.isDone ? this.setState({
       style: {
-        opacity: (50 + x * 5) * 0.01
+        opacity: (50 + x * 2.5) * 0.01
       }
     }) : this.setState({
       style: {
-        opacity: (100 - x * 5) * 0.01
+        opacity: (100 - x * 2.5) * 0.01
       }
     })
   }
@@ -48,6 +50,7 @@ class Item extends React.Component {
     setImmediate(() => {
       this.hasSetedX = false
       this.x = 0
+      this.y = 0
       this.initOpacity(this.isDone)
     })
   }

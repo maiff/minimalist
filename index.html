@@ -10,25 +10,26 @@
         var docEl = doc.documentElement,
             resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
             recalc = function () {
-                var clientWidth = docEl.clientWidth;
-                if (!clientWidth) return;
+                var clientWidth = docEl.clientWidth
+                if (!clientWidth) return
                 if(clientWidth>=640){
-                    docEl.style.fontSize = '50px';
+                    docEl.style.fontSize = '50px'
                 }else{
                     docEl.style.fontSize = 50 * (clientWidth / 640) + 'px';
                 }
+                docEl.style.height = '100%'
             };
 
         if (!doc.addEventListener) return;
-        win.addEventListener(resizeEvt, recalc, false);
-        doc.addEventListener('DOMContentLoaded', recalc, false);
-    })(document, window);
+        win.addEventListener(resizeEvt, recalc, false)
+        doc.addEventListener('DOMContentLoaded', recalc, false)
+    })(document, window)
   </script>
   <!--
   we should add a link tag for index.css when build
   -->
 </head>
-<body>
+<body style="height:100%">
 <div id="root">
 
 </div>
