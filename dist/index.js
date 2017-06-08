@@ -27751,7 +27751,7 @@ var Todo = function (_React$Component) {
     key: 'modify',
     value: function modify(evt) {
       evt.preventDefault();
-      __WEBPACK_IMPORTED_MODULE_3__store___["a" /* default */].dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions__["d" /* modify */])(this.id, this.text));
+      __WEBPACK_IMPORTED_MODULE_3__store___["a" /* default */].dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions__["d" /* modify */])(this.id, this.props.text));
       console.log(1);
       return false;
     }
