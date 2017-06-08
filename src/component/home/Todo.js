@@ -1,8 +1,8 @@
 import React from 'react'
 import { StyleSheet, css } from 'aphrodite'
 import AlloyFinger from '../common/AlloyFinger'
-
-
+import store from '../../store/'
+import { deleteTodo, modify } from '../../actions'
 class Todo extends React.Component {
   constructor (props) {
     super(props)
@@ -12,10 +12,12 @@ class Todo extends React.Component {
     this.state = {
       style: {
         opacity: 1,
-        textDecoration: 'none'
+        textDecoration: 'none',
+        marginLeft: 0
       }
     }
 
+    this.id = props.todoId
     this.changeDone = props.changeDone
     this.completed = props.completed
     this.text = props.text
@@ -26,6 +28,8 @@ class Todo extends React.Component {
     this.y += evt.deltaY
     if (evt.deltaX > 0 && this.y < 10) {
       this.rightSwip()
+    } else if (evt.deltaX < 0 && this.y < 10) {
+      this.leftSwip()
     }
     // evt.stopPropagation()
   }
@@ -33,12 +37,28 @@ class Todo extends React.Component {
     if (this.x > 20) {
       if (this.hasSetedX === false) {
         this.completed = !this.completed
-         this.changeDone()
+        this.changeDone()
         this.hasSetedX = true
       }
-    } else {
+    } else if (this.x < 20 && this.x > 0) {
       this.setOpacity(this.x)
     }
+  }
+  leftSwip () {
+    if (this.x < -30) {
+      window.confirm('是否删除本条目？') ? 
+      store.dispatch(deleteTodo(this.id)) :
+      this.init()
+    } else if (this.x > -30 && this.x < 0) {
+      this.setMarginLeft(this.x)
+    }
+  }
+  setMarginLeft (x) {
+    this.setState({
+      style: {
+        marginLeft: x + 'px'
+      }
+    })
   }
   setOpacity (x) {
     this.completed ? this.setState({
@@ -73,9 +93,14 @@ class Todo extends React.Component {
       }
     })
   }
+  modify (evt) {
+    evt.preventDefault()
+    store.dispatch(modify(this.id, this.text))
+    console.log(1)
+  }
   render () {
     return (
-      <AlloyFinger onPressMove={this.onPressMove.bind(this)} onTouchEnd={this.init.bind(this)}>
+      <AlloyFinger onPressMove={this.onPressMove.bind(this)} onTouchEnd={this.init.bind(this)} onLongTap={this.modify.bind(this)}>
         <p className={css(styles.smallerFontSize)} style={this.state.style}>{this.text}</p>
       </AlloyFinger>
     )
@@ -87,7 +112,9 @@ class Todo extends React.Component {
 
 const styles = StyleSheet.create({
   'smallerFontSize': {
-    fontSize: '0.8rem'
+    fontSize: '0.8rem',
+    width: '100%',
+    display: 'block'
   }
 })
 

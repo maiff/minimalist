@@ -14,3 +14,22 @@ export const toggleTodo = (id) => ({
 export const deleteTodoDone = () => ({
   type: 'DELETE_TODO_HASCOMPLETED'
 })
+
+export const deleteTodo = (id) => ({
+  type: 'DELETE_TODO',
+  id
+})
+
+export const modifyTodo = (id, text) => ({
+  type: 'MODIFY_TODO',
+  id,
+  text
+})
+export const setFalse = () => ({
+  type: 'SET_FLAG_TO_FALSE'
+})
+export const modify = (id, text) => ({
+  type: 'MODIFY_ID',
+  id,
+  text
+})

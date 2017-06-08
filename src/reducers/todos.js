@@ -20,6 +20,17 @@ const todos = (state = [], action) => {
         todo =>
           todo.completed === false
         )
+    case 'DELETE_TODO':
+      return state.filter(
+        todo => 
+          todo.id !== action.id
+      )
+    case 'MODIFY_TODO':
+      return state.map(todo =>
+        (todo.id === action.id) 
+          ? {...todo, text: action.text}
+          : todo
+      )
     default:
       return state
   }

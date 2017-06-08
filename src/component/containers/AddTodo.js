@@ -1,10 +1,11 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { addTodo } from '../../actions/'
+import { addTodo, modifyTodo, setFalse } from '../../actions/'
 import { StyleSheet, css } from 'aphrodite'
+import store from '../../store/'
 
 let input
-let AddTodo = ({ dispatch, addInputOnBlur }) => {
+let AddTodo = ({ dispatch, addInputOnBlur, getState}) => {
   return (
     <div>
       <input className={css(styles.fontSize)} 
@@ -14,7 +15,9 @@ let AddTodo = ({ dispatch, addInputOnBlur }) => {
           if (!input.value.trim()) {
             return
           }
-          dispatch(addTodo(input.value))
+          let localStore = store.getState()
+          localStore.modify.flag ? dispatch(modifyTodo(localStore.modify.id, input.value)) : dispatch(addTodo(input.value))
+          dispatch(setFalse())
           input.value = ''
         }} type='text' />
     </div>

@@ -5,24 +5,26 @@ import { connect } from 'react-redux'
 
 let TodoList = ({ todos, changeDone }) => (
   <div>
+    {console.log(todos)}
     {todos.map(todo =>
       <Todo
+        todoId={todo.id}
         key={todo.id}
-        {...todo}
+        text={todo.text}
         changeDone={() => changeDone(todo.id)}
       />
     )}
+    {console.log(todos)}
   </div>
 )
 
-
-
-const mapStateToProps = (state) => {
-  console.log(state)
-  return {
-    todos: state.todos
-  }
+function getTodos (state) {
+  return state.todos
 }
+
+const mapStateToProps = (state) => ({
+    todos:  getTodos (state)
+})
 
 const mapDispatchToProps = {
   changeDone: toggleTodo
