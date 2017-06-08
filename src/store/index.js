@@ -1,35 +1,10 @@
 import { createStore } from 'redux'
 import todoApp from '../reducers'
-
+import { setTodo } from '../actions'
+import url from '../baseUrl'
 
 let store = createStore(todoApp, {
-  todos: [
-    {
-      id: 0,
-      text: '下拉添加',
-      completed: false
-    },
-    {
-      id: 1,
-      text: '左滑删除',
-      completed: false
-    },
-    {
-      id: 2,
-      text: '右滑标记已完成',
-      completed: false
-    },
-    {
-      id: 3,
-      text: '摇动删除已完成',
-      completed: false
-    },
-    {
-      id: 4,
-      text: '长按编辑条目',
-      completed: false
-    }
-  ]
+  todos: []
 }, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 if (module.hot) {
   // Enable Webpack hot module replacement for reducers
@@ -39,4 +14,17 @@ if (module.hot) {
   })
 }
 
+// window.fetch(`${url}/todo/`).then((data) => {
+//   return data.json()
+// }).then((data) => console.log(data))
+
+async function getTodoList () {
+  let data = await window.fetch(`${url}/todo/`)
+  let todoList = await data.json()
+  console.log(todoList)
+  window.nextTodoId = todoList.length + 1
+  store.dispatch(setTodo(todoList))
+}
+
+getTodoList()
 export default store

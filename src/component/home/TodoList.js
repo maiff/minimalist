@@ -1,16 +1,22 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
 import Todo from './Todo'
 import { toggleTodo } from '../../actions/'
 import { connect } from 'react-redux'
-
+import url from '../../baseUrl'
 let TodoList = ({ todos, changeDone }) => (
   <div>
     {todos.map(todo =>
       <Todo
         todoId={todo.id}
         key={todo.id}
-        text={todo.text}
-        changeDone={() => changeDone(todo.id)}
+        {...todo}
+        changeDone={() => {
+          window.fetch(`${url}\\todo\\${todo.id}\\`, {
+            method: "PUT",
+            body: JSON.stringify({text: todo.text, completed: !todo.completed})
+          })
+          changeDone(todo.id)
+        }}
       />
     )}
   </div>

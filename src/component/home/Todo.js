@@ -11,8 +11,8 @@ class Todo extends React.Component {
     this.hasSetedX = false
     this.state = {
       style: {
-        opacity: 1,
-        textDecoration: 'none',
+        opacity: props.completed ? 0.5 : 1,
+        textDecoration: props.completed ? 'line-through' : 'none',
         marginLeft: 0
       }
     }
@@ -96,13 +96,12 @@ class Todo extends React.Component {
   modify (evt) {
     evt.preventDefault()
     store.dispatch(modify(this.id, this.props.text))
-    console.log(1)
     return false
   }
   render () {
     return (
       <AlloyFinger onPressMove={this.onPressMove.bind(this)} onTouchEnd={this.init.bind(this)} onLongTap={this.modify.bind(this)}>
-        <p className={css(styles.smallerFontSize)} style={{...this.state.style, '-moz-user-select':'none', '-webkit-user-select':'none'}}>{this.props.text}</p>
+        <p className={css(styles.smallerFontSize)} style={{...this.state.style, 'userSelect': 'none', 'touchCallout': 'none'}}>{this.props.text}</p>
       </AlloyFinger>
     )
   }
@@ -115,7 +114,8 @@ const styles = StyleSheet.create({
   'smallerFontSize': {
     fontSize: '0.8rem',
     width: '100%',
-    display: 'block'
+    display: 'block',
+    '-webkit-touch-callout': 'none'
   }
 })
 

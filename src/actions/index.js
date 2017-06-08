@@ -1,15 +1,20 @@
-let nextTodoId = 0
 export const addTodo = (text) => ({
   type: 'ADD_TODO',
-  id: nextTodoId++,
+  id: window.nextTodoId++,
   text
 })
-
-
-export const toggleTodo = (id) => ({
-  type: 'TOGGLE_TODO',
-  id
+export const setTodo = (todoList) => ({
+  type: 'SET_TODO',
+  todoList
 })
+
+
+export const toggleTodo = (id, text) => {
+  return {
+    type: 'TOGGLE_TODO',
+    id
+  }
+}
 
 export const deleteTodoDone = () => ({
   type: 'DELETE_TODO_HASCOMPLETED'

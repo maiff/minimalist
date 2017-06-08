@@ -31,6 +31,8 @@ const todos = (state = [], action) => {
           ? {...todo, text: action.text}
           : todo
       )
+    case 'SET_TODO':
+      return action.todoList
     default:
       return state
   }

@@ -7,6 +7,7 @@ const DEV = process.env.NODE_ENV !== 'production';
 const config = {
   context: path.resolve(__dirname, 'src'),/*?*/
   entry: [
+    'babel-polyfill',
     './index.js'
   ],
   node: {
