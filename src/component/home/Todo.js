@@ -3,6 +3,7 @@ import { StyleSheet, css } from 'aphrodite'
 import AlloyFinger from '../common/AlloyFinger'
 import store from '../../store/'
 import { deleteTodo, modify } from '../../actions'
+import url from '../../baseUrl'
 class Todo extends React.Component {
   constructor (props) {
     super(props)
@@ -46,9 +47,14 @@ class Todo extends React.Component {
   }
   leftSwip () {
     if (this.x < -30) {
-      window.confirm('是否删除本条目？') ? 
-      store.dispatch(deleteTodo(this.id)) :
-      this.init()
+      if (window.confirm('是否删除本条目？')) {
+        window.fetch(`${url}/todo/${this.id}/`, {
+          method: 'DELETE'
+        })
+        store.dispatch(deleteTodo(this.id))
+      } else {
+        this.init()
+      }
     } else if (this.x > -30 && this.x < 0) {
       this.setMarginLeft(this.x)
     }
