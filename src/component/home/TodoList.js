@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 
 let TodoList = ({ todos, changeDone }) => (
   <div>
-    {console.log(todos)}
     {todos.map(todo =>
       <Todo
         todoId={todo.id}
@@ -14,7 +13,6 @@ let TodoList = ({ todos, changeDone }) => (
         changeDone={() => changeDone(todo.id)}
       />
     )}
-    {console.log(todos)}
   </div>
 )
 

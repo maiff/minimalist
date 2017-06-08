@@ -97,11 +97,12 @@ class Todo extends React.Component {
     evt.preventDefault()
     store.dispatch(modify(this.id, this.text))
     console.log(1)
+    return false
   }
   render () {
     return (
       <AlloyFinger onPressMove={this.onPressMove.bind(this)} onTouchEnd={this.init.bind(this)} onLongTap={this.modify.bind(this)}>
-        <p className={css(styles.smallerFontSize)} style={this.state.style}>{this.text}</p>
+        <p className={css(styles.smallerFontSize)} style={{...this.state.style, '-moz-user-select':'none', '-webkit-user-select':'none'}}>{this.props.text}</p>
       </AlloyFinger>
     )
   }

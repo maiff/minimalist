@@ -5,13 +5,28 @@ import todoApp from '../reducers'
 let store = createStore(todoApp, {
   todos: [
     {
+      id: 0,
+      text: '下拉添加',
+      completed: false
+    },
+    {
       id: 1,
-      text: 'ttttt',
+      text: '左滑删除',
       completed: false
     },
     {
       id: 2,
-      text: 'aaaaaa',
+      text: '右滑标记已完成',
+      completed: false
+    },
+    {
+      id: 3,
+      text: '摇动删除已完成',
+      completed: false
+    },
+    {
+      id: 4,
+      text: '长按编辑条目',
       completed: false
     }
   ]

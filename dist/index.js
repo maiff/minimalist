@@ -7210,12 +7210,24 @@ if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' 
 
 var store = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_redux__["b" /* createStore */])(__WEBPACK_IMPORTED_MODULE_1__reducers__["a" /* default */], {
   todos: [{
+    id: 0,
+    text: '下拉添加',
+    completed: false
+  }, {
     id: 1,
-    text: 'ttttt',
+    text: '左滑删除',
     completed: false
   }, {
     id: 2,
-    text: 'aaaaaa',
+    text: '右滑标记已完成',
+    completed: false
+  }, {
+    id: 3,
+    text: '摇动删除已完成',
+    completed: false
+  }, {
+    id: 4,
+    text: '长按编辑条目',
     completed: false
   }]
 }, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
@@ -27609,6 +27621,8 @@ var styles = __WEBPACK_IMPORTED_MODULE_3_aphrodite__["StyleSheet"].create({
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__common_AlloyFinger__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__store___ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__actions__ = __webpack_require__(35);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -27739,6 +27753,7 @@ var Todo = function (_React$Component) {
       evt.preventDefault();
       __WEBPACK_IMPORTED_MODULE_3__store___["a" /* default */].dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4__actions__["d" /* modify */])(this.id, this.text));
       console.log(1);
+      return false;
     }
   }, {
     key: 'render',
@@ -27748,8 +27763,8 @@ var Todo = function (_React$Component) {
         { onPressMove: this.onPressMove.bind(this), onTouchEnd: this.init.bind(this), onLongTap: this.modify.bind(this) },
         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
           'p',
-          { className: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_aphrodite__["css"])(styles.smallerFontSize), style: this.state.style },
-          this.text
+          { className: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_aphrodite__["css"])(styles.smallerFontSize), style: _extends({}, this.state.style, { '-moz-user-select': 'none', '-webkit-user-select': 'none' }) },
+          this.props.text
         )
       );
     }
@@ -27790,7 +27805,6 @@ var TodoList = function TodoList(_ref) {
   return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
     null,
-    console.log(todos),
     todos.map(function (todo) {
       return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__Todo__["a" /* default */], {
         todoId: todo.id,
@@ -27800,8 +27814,7 @@ var TodoList = function TodoList(_ref) {
           return _changeDone(todo.id);
         }
       });
-    }),
-    console.log(todos)
+    })
   );
 };
 
