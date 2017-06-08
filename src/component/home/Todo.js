@@ -95,7 +95,7 @@ class Todo extends React.Component {
   }
   modify (evt) {
     evt.preventDefault()
-    store.dispatch(modify(this.id, this.text))
+    store.dispatch(modify(this.id, this.props.text))
     console.log(1)
     return false
   }
