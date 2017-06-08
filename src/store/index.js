@@ -22,7 +22,7 @@ async function getTodoList () {
   let data = await window.fetch(`${url}/todo/`)
   let todoList = await data.json()
   console.log(todoList)
-  window.nextTodoId = todoList.length + 1
+  window.nextTodoId = todoList[todoList.length - 1].id + 1
   store.dispatch(setTodo(todoList))
 }
 

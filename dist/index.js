@@ -9825,7 +9825,7 @@ var getTodoList = function () {
             todoList = _context.sent;
 
             console.log(todoList);
-            window.nextTodoId = todoList.length + 1;
+            window.nextTodoId = todoList[todoList.length - 1].id + 1;
             store.dispatch(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__actions__["h" /* setTodo */])(todoList));
 
           case 9:
