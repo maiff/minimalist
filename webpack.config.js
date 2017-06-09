@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const rm = require('rimraf').sync
 const DEV = process.env.NODE_ENV !== 'production';
 
@@ -51,6 +52,7 @@ if (DEV) {
 
 } else {
   rm('./dist/*')
+  config.plugins.push(new UglifyJSPlugin())
   config.output.filename = "index.js";
 }
 
