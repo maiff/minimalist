@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Hello World!</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="https://necolas.github.io/normalize.css/7.0.0/normalize.css">
+  <script>
+    (function (doc, win) {
+        var docEl = doc.documentElement,
+            resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+            recalc = function () {
+                var clientWidth = docEl.clientWidth
+                if (!clientWidth) return
+                if(clientWidth>=640){
+                    docEl.style.fontSize = '50px'
+                }else{
+                    docEl.style.fontSize = 50 * (clientWidth / 640) + 'px';
+                }
+                docEl.style.height = '100%'
+                docEl.style.width = '100%'
+            };
+
+        if (!doc.addEventListener) return;
+        win.addEventListener(resizeEvt, recalc, false)
+        doc.addEventListener('DOMContentLoaded', recalc, false)
+    })(document, window)
+  </script>
+  <!--
+  we should add a link tag for index.css when build
+  -->
+</head>
+<body style="height:100%">
+<div id="root" style="height:100%">
+
+</div>
+<script type="text/javascript" src="manifest.809f998bd0fb6665bada.js"></script><script type="text/javascript" src="vendor.809f998bd0fb6665bada.js"></script><script type="text/javascript" src="index.809f998bd0fb6665bada.js"></script></body>
+
+</html>

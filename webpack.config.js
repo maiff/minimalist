@@ -4,27 +4,34 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin')
 const rm = require('rimraf').sync
 const DEV = process.env.NODE_ENV !== 'production';
-
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const config = {
   context: path.resolve(__dirname, 'src'),/*?*/
-  entry: [
-    'babel-polyfill',
-    './index.js'
-  ],
+  entry: {
+    index: ['babel-polyfill', './index.js']
+  },
   node: {
     __dirname: true,/*?*/
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: 'index.js',
-    publicPath: 'http://localhost:8888/dist/'/*?*/
+    filename: '[name].[hash].js'
   },
-  plugins: [],
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './index.html'
+    })
+  ],
   module: {
     rules: [
       {
         test: /\.js?$/,
-        use: ['babel-loader']
+        use: ['babel-loader'],
+        exclude: /node_modules/
+      },
+      {
+        test: /\.html$/,
+        loader: 'html-loader'
       }
     ]
   },
@@ -42,7 +49,7 @@ config.module.rules.push({
 
 if (DEV) {
   config.devtool = '#cheap-module-eval-source-map';
-  config.entry.unshift(
+  config.entry.index.unshift(
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:8888',
     'webpack/hot/only-dev-server'
@@ -53,7 +60,20 @@ if (DEV) {
 } else {
   rm('./dist/*')
   config.plugins.push(new UglifyJSPlugin())
-  config.output.filename = "index.js";
+  config.plugins.push(...[
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        minChunks: function (module) {
+            // this assumes your vendor imports exist in the node_modules directory
+            return module.context && module.context.indexOf('node_modules') !== -1;
+        }
+    }),
+    //CommonChunksPlugin will now extract all the common modules from vendor and main bundles
+    new webpack.optimize.CommonsChunkPlugin({ 
+      name: 'manifest' //But since there are no more common modules between them we end up with just the runtime code included in the manifest file
+    })
+  ])
+  // config.output.filename = "index.js";
 }
 
 
