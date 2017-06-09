@@ -14,9 +14,6 @@ if (module.hot) {
   })
 }
 
-// window.fetch(`${url}/todo/`).then((data) => {
-//   return data.json()
-// }).then((data) => console.log(data))
 
 async function getTodoList () {
   let data = await window.fetch(`${url}/todo/`)

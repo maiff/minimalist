@@ -11,7 +11,7 @@ let TodoList = ({ todos, changeDone }) => (
         key={todo.id}
         {...todo}
         changeDone={() => {
-          window.fetch(`${url}\\todo\\${todo.id}\\`, {
+          window.fetch(`${url}/todo/${todo.id}/`, {
             method: "PUT",
             body: JSON.stringify({text: todo.text, completed: !todo.completed})
           })

@@ -15,7 +15,7 @@ const config = {
   },
   output: {
     path: path.join(__dirname, 'dist'),
-    filename: '[name].[hash].js'
+    filename: '[name].[chunkhash].js'
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -48,6 +48,7 @@ config.module.rules.push({
 
 
 if (DEV) {
+  config.output.filename = '[name].[hash].js'
   config.devtool = '#cheap-module-eval-source-map';
   config.entry.index.unshift(
     'react-hot-loader/patch',
@@ -71,7 +72,12 @@ if (DEV) {
     //CommonChunksPlugin will now extract all the common modules from vendor and main bundles
     new webpack.optimize.CommonsChunkPlugin({ 
       name: 'manifest' //But since there are no more common modules between them we end up with just the runtime code included in the manifest file
-    })
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production')
+    }
+})
   ])
   // config.output.filename = "index.js";
 }

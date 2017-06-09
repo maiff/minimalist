@@ -4,6 +4,7 @@ import AlloyFinger from '../common/AlloyFinger'
 import store from '../../store/'
 import { deleteTodo, modify } from '../../actions'
 import url from '../../baseUrl'
+
 class Todo extends React.Component {
   constructor (props) {
     super(props)
