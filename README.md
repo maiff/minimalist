@@ -3,7 +3,7 @@
 # minimalist
 minimalist on web~
 
-[在线预览（手机版）](http://115.159.213.177:8888/minimalist/)
+[在线预览（手机版）](http://115.159.213.177:8888/minimalist/dist/)
 
 <a href="https://cl.ly/3l2w2D2U2r1W"><img src="http://7xpser.com1.z0.glb.clouddn.com/Screen%20recording%202017-06-09%20at%2003.08.09%20AM.gif" /></a>
 
