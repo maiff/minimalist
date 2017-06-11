@@ -2,7 +2,8 @@ import React from 'react'
 import { render } from 'react-dom'
 import { AppContainer } from 'react-hot-loader'
 
-
+import Raven from 'raven-js'
+Raven.config('https://921035588017413788dd07127334eb82@sentry.io/178352').install()
 
 import App from './App'
 
